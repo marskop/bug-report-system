@@ -1,0 +1,13 @@
+<div *ngFor="let alert of alerts">
+
+  <div class="{{ cssClass(alert) }}">
+    <div class="alert__message">
+      <p>{{ alert.message }}</p>
+      <button class="close" (click)="removeAlert(alert)">
+        <svg class="close__icon">
+          <use xlink:href="assets/svg/sprite.svg#icon-cross"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

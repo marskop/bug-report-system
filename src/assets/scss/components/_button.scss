@@ -1,0 +1,327 @@
+.btn {
+
+  &,
+  &:link,
+  &:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 1rem;
+    transition: all .2s;
+    position: relative;
+    background-color: $color-primary-light;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(black, .2);
+    background-color: $color-secondary;
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 .5rem 1rem rgba(black, .2);
+  }
+
+
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+  }
+
+  &--animated {
+    animation: moveInBottom .5s ease-out .75s;
+    animation-fill-mode: backwards;
+  }
+}
+
+
+
+.btn-arrow {
+  border: none;
+  color: #A98AB0;
+  font-size: 2rem;
+  padding: 0 1rem;
+  display: inline-block;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all .2s;
+
+  & span {
+    margin-left: .3rem;
+    transition: margin-left .2s;
+  }
+
+  &:hover {
+    color: $color-white;
+
+    span {
+      margin-left: .8rem;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+
+.btn-rectangle {
+  width: 20rem;
+  border: .2rem solid #A98AB0;
+  background-color: transparent;
+  padding: .5rem 1rem;
+  margin: 0 .2rem;
+  color: #A98AB0;
+  cursor: pointer;
+  font-size: 1.5rem;
+  outline: none;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  svg {
+    fill: $color-secondary;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  &:hover {
+    // transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(black, .2);
+    background-color: #A98AB0;
+    color: white;
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+
+    svg {
+      fill: $color-white;
+    }
+  }
+
+}
+
+
+.btn-purple {
+  width: 15rem;
+  border: .2rem solid #A98AB0;
+  background-color: transparent;
+  padding: 1rem 1rem;
+  margin: 0 .2rem;
+  background-color: $color-secondary;
+  color: $color-white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  outline: none;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+
+  svg {
+    fill: $color-white;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  &:hover {
+    box-shadow: 0 1rem 2rem rgba(black, .2);
+    background-color: transparent;
+    color: $color-secondary;
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+
+    svg {
+      fill: $color-secondary;
+    }
+  }
+
+}
+
+
+.btn-dark {
+  
+  // width: 15rem;
+  border: .2rem solid $color-background-dark;
+  background-color: $color-background-dark;
+  padding: 1rem 1rem;
+  margin: 0 .2rem;
+  // background-color: $color-secondary;
+  color: $color-white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  outline: none;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+
+  svg {
+    fill: $color-white;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  &:hover {
+    box-shadow: 0 1rem 2rem rgba(black, .2);
+    background-color: transparent;
+    color: $color-background-dark;
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+
+    svg {
+      fill: $color-secondary;
+    }
+  }
+
+}
+
+
+.btn-clear {
+  width: auto;
+  border: .2rem solid #A98AB0;
+  background-color: transparent;
+  padding: .65rem 1rem;
+  margin: 0 .2rem;
+  background-color: $color-secondary;
+  color: $color-white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  outline: none;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+
+  svg {
+    fill: $color-white;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-left: .5rem;
+  }
+
+  &:hover {
+    box-shadow: 0 1rem 2rem rgba(black, .2);
+    background-color: transparent;
+    color: $color-secondary;
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+
+    svg {
+      fill: $color-secondary;
+    }
+  }
+
+}
+
+
+.btn-page {
+  border: .2rem solid #A98AB0;
+  background-color: transparent;
+  padding: .5rem 1rem;
+  margin: 0 .2rem;
+  color: #A98AB0;
+  cursor: pointer;
+  font-size: 1.5rem;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(black, .2);
+    background-color: #A98AB0;
+    color: white;
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 .5rem 1rem rgba(black, .2);
+  }
+}
+
+
+.btn-sort {
+  width: 1.7rem;
+  height: 1.7rem;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  margin-left: 1rem;
+
+  svg {
+    width: 1.7rem;
+    height: 1.7rem;
+    fill: #A98AB0;
+  }
+}
+
+.btn-edit {
+  width: 1.7rem;
+  height: 1.7rem;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  margin-left: 1rem;
+
+  svg {
+    width: 1.7rem;
+    height: 1.7rem;
+    fill: #A98AB0;
+
+    &:hover {
+      fill: $color-white;
+    }
+  }
+}
+
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

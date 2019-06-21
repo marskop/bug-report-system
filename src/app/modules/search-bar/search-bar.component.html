@@ -1,0 +1,101 @@
+<div class="filters">
+
+  <!-- <div>
+    <input value="" placeholder="Search" [(ngModel)]="searchInput" (input)="searchInputChanged()" class="btn-page" type="text">
+    <button (click)="clearSearchInput()" class="btn-page">Clear</button>
+  </div> -->
+
+  <div class="dropdown">
+    <button (focus)="onSearchFocus()" (blur)="onSearchBlur()" type="button" class="dropdown__button btn-rectangle">
+      <span *ngIf="BugPriority == ''"> Select Priority</span>
+      <span *ngIf="BugPriority != ''">Priority: {{BugPriority}}</span>
+      <svg>
+        <use xlink:href="assets/svg/sprite.svg#icon-menu3"></use>
+      </svg>
+    </button>
+    <ul *ngIf="ReporterButtonFocused" class="dropdown__menu">
+      <li class="dropdown__item--disabled">
+        Select Priority
+      </li>
+      <li (click)="SelectBugPriority('All')" class="dropdown__item">
+        All
+      </li>
+      <li (click)="SelectBugPriority('Minor')" class="dropdown__item">
+        Minor
+      </li>
+      <li (click)="SelectBugPriority('Major')" class="dropdown__item">
+        Major
+      </li>
+      <li (click)="SelectBugPriority('Critical')" class="dropdown__item">
+        Critical
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="dropdown">
+    <button (focus)="onSearchFocus()" (blur)="onSearchBlur()" type="button" class="dropdown__button btn-rectangle">
+      <span *ngIf="BugReporter == ''"> Select Reporter</span>
+      <span *ngIf="BugReporter != ''">Reporter: {{BugReporter}}</span>
+      <svg>
+        <use xlink:href="assets/svg/sprite.svg#icon-menu3"></use>
+      </svg>
+    </button>
+    <ul *ngIf="ReporterButtonFocused" class="dropdown__menu">
+      <li class="dropdown__item--disabled">
+        Select Reporter
+      </li>
+      <li (click)="SelectBugReporter('All')" class="dropdown__item">
+        All
+      </li>
+      <li (click)="SelectBugReporter('QA')" class="dropdown__item">
+        QA
+      </li>
+      <li (click)="SelectBugReporter('PO')" class="dropdown__item">
+        PO
+      </li>
+      <li (click)="SelectBugReporter('DEV')" class="dropdown__item">
+        DEV
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="dropdown">
+    <button (focus)="onSearchFocus()" (blur)="onSearchBlur()" type="button" class="dropdown__button btn-rectangle">
+      <span *ngIf="BugStatus == ''"> Select Status</span>
+      <span *ngIf="BugStatus != ''">Status: {{BugStatus}}</span>
+      <svg>
+        <use xlink:href="assets/svg/sprite.svg#icon-menu3"></use>
+      </svg>
+    </button>
+    <ul *ngIf="StatusButtonFocused" class="dropdown__menu">
+      <li class="dropdown__item--disabled">
+        Select Status
+      </li>
+      <li (click)="SelectBugStatus('All')" class="dropdown__item">
+        All
+      </li>
+      <li (click)="SelectBugStatus('Done')" class="dropdown__item">
+        Done
+      </li>
+      <li (click)="SelectBugStatus('Rejected')" class="dropdown__item">
+        Rejected
+      </li>
+      <li (click)="SelectBugStatus('Ready for test')" class="dropdown__item">
+        Ready for test
+      </li>
+    </ul>
+  </div>
+
+  <div class="filters__clear">
+    <button (click)="clearAllFilters()" class="btn-clear">
+      <span>Clear filters</span>
+      <svg>
+        <use xlink:href="assets/svg/sprite.svg#icon-filter"></use>
+      </svg>
+    </button>
+  </div>
+
+
+</div>

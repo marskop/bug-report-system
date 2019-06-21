@@ -1,0 +1,133 @@
+.form {
+
+  display: grid;
+  grid-template-rows: repeat(7, max-content);
+  grid-template-columns: 1fr;
+  grid-row-gap: 1rem;
+  justify-content: center;
+
+  &__button {
+    justify-self: center;
+  }
+
+  &__input {
+    font-size: 1.5rem;
+    font-family: inherit;
+    outline: 1px solid #A98AB0;
+    color: $color-white;
+    padding: .7rem 2rem;
+    border-radius: 2px;
+    background-color: rgba(#383E4C, .5);
+    border: none;
+    border-bottom: 3px solid transparent;
+    width: 100%;
+    display: block;
+    transition: all .3s;
+
+    &:focus {
+      outline: none;
+      box-shadow: 2rem 2rem 2rem rgba($color-black, .3);
+      border-bottom: 3px solid #A98AB0;
+    }
+
+    &:focus:invalid {
+      border-bottom: 3px solid $color-tertiary;
+    }
+
+    &::-webkit-input-placeholder {
+      color: $color-grey-dark-2;
+    }
+  }
+
+  &__label {
+    font-size: 1.7rem;
+    font-weight: 400;
+    margin-left: 1rem;
+    margin-top: .3rem;
+    display: block;
+    transition: all .3s;
+    color: $color-secondary;
+  }
+
+  &__input:placeholder-shown+&__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-3rem);
+  }
+
+
+
+  &__btn {
+
+    outline: none;
+    color: $color-white;
+
+    &,
+    &:link,
+    &:visited {
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1rem 4rem;
+      display: inline-block;
+      border-radius: 10rem;
+      transition: all .2s;
+      position: relative;
+      font-size: $default-font-size;
+      border: none;
+      cursor: pointer;
+      background-image: linear-gradient(to right, $color-secondary, $color-secondary-light);
+      width: 20rem;
+      margin: 1.5rem 0;
+    }
+
+
+    &:active,
+    &:focus {
+      outline: none;
+      transform: translateY(-1px);
+      box-shadow: 0 .5rem 1rem rgba($color-black, .2);
+    }
+
+    &--purple {
+      background-image: linear-gradient(to right, $color-secondary, $color-secondary-light);
+      color: $color-white;
+
+      &::after {
+        background-color: $color-secondary;
+      }
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 1rem 2rem rgba($color-black, .2);
+      }
+    }
+  }
+
+
+  input:required {
+    box-shadow: none;
+  }
+
+  input:invalid {
+    box-shadow: none;
+  }
+
+  textarea:required {
+    box-shadow: none;
+  }
+
+  textarea:invalid {
+    box-shadow: none;
+  }
+
+  select {
+    background-color: $color-background;
+    // appearance: none;
+  }
+
+
+  // select option:hover {
+  //   background-color: $color-secondary;
+  // }
+
+}

@@ -1,0 +1,109 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+
+  <div class="container__form">
+
+    <div class="form__title">
+      <h2 class="heading-secondary">
+        Report a bug
+      </h2>
+    </div>
+
+    <form [formGroup]="addBugForm" (ngSubmit)="addNewBug()" class="form">
+
+      <div class="form__group--title">
+        <label for="title" class="form__label">Title</label>
+        <input type="text" class="form__input" id="title" formControlName="title" required />
+
+        <div class="error" *ngIf="title.invalid && title.errors.required && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Title is required.</span>
+        </div>
+
+        <div class="error" *ngIf="title.invalid && (title.errors.minlength || title.errors.maxlength) && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Title must contain {{titleMinLength}} - {{titleMaxLength}} characters</span>
+        </div>
+
+
+        <!-- {{ title.errors.minLength}}
+        {{ title.errors.maxLength}}
+        {{ Submitted}} -->
+
+      </div>
+
+
+      <div class="form__group--priority">
+        <label for="priority" class="form__label">Priority</label>
+        <select class="form__input" id="priority" formControlName="priority">
+          <option *ngFor="let priority of priorities" [value]="priority.key">{{priority.value}}</option>
+        </select>
+        <div class="error" *ngIf="priority.invalid && priority.errors.required && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Priority is required.</span>
+        </div>
+
+      </div>
+
+      <div class="form__group--reporter">
+        <label for="reporter" class="form__label">Reporter</label>
+        <select class="form__input" id="reporter" formControlName="reporter">
+          <option *ngFor="let reporter of reporters" [value]="reporter">{{reporter}}</option>
+        </select>
+        <div class="error" *ngIf="reporter.invalid && reporter.errors.required && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Reporter is required. </span>
+        </div>
+      </div>
+
+      <div class="form__group--status ">
+        <label for="status" class="form__label">Status</label>
+        <select class="form__input" id="status" formControlName="status">
+          <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
+        </select>
+        <div class="error" *ngIf="status.invalid && status.errors.required && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Status is required.</span>
+        </div>
+      </div>
+
+      <div class="form__group--description">
+        <label for="description" class="form__label">Description</label>
+        <textarea rows="4" cols="30" class="form__input" id="description" formControlName="description"
+          required></textarea>
+        <div class="error" *ngIf="description.invalid && description.errors.required && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Description is required.</span>
+        </div>
+      </div>
+
+      <div class="form__group--button">
+        <button type="submit" value="submit" class="form__btn btn btn--purple">Report</button>
+      </div>
+    </form>
+
+  </div>
+
+
+  <div class="container__love">
+    Made with
+    <i>♥</i> by
+    Team 7
+  </div>
+
+
+
+</div>

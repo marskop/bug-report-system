@@ -1,0 +1,15 @@
+.heading-secondary {
+
+  font-size: 3rem;
+  display: inline-block;
+  background-image: linear-gradient(to right,
+  rgb(208, 167, 218), #A98AB0);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  transition: all .2s;
+
+  // @media only screen and (max-width: 50em) {
+  //   font-size: 2rem;
+  // }
+}

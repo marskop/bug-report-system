@@ -1,0 +1,15 @@
+<div *ngIf="message" class="modal" tabindex="-1" role="dialog">
+  <div class="modal__content">
+    <div *ngIf="message?.type == 'confirm'">
+      <h4 class="modal__title u-margin-bottom-small"> {{ message.text }} </h4>
+      <div class="modal__buttons">
+        <button (click)="message.noFn()" class="btn-dark">
+          <p>No</p>
+        </button>
+        <button (click)="message.siFn()" class="btn-purple">
+          <p>Yes</p>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,160 @@
+<div class="container">
+
+  <div class="container__navbar">
+    <app-navbar></app-navbar>
+  </div>
+
+  <div class="container__form">
+
+    <div class="form__title">
+      <h2 class="heading-secondary">
+        Edit Bug
+      </h2>
+    </div>
+
+    <form [formGroup]="editBugForm" (ngSubmit)="updateBug()" class="form">
+      <div class="form__group--title">
+        <label for="title" class="form__label">Title</label>
+        <input type="text" class="form__input" placeholder="Title" id="title" formControlName="title" required />
+        <div class="error" *ngIf="title.invalid && title.errors.required && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Title is required.</span>
+        </div>
+      </div>
+
+      <div class="form__group--priority">
+        <label for="priority" class="form__label">Priority</label>
+        <select class="form__input" id="priority" formControlName="priority">
+          <option selected disabled>Select Priority</option>
+          <option *ngFor="let priority of priorities" [value]="priority.key">{{priority.value}}</option>
+        </select>
+        <div class="error" *ngIf="priority.invalid && priority.errors.required && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Priority is required.</span>
+        </div>
+      </div>
+
+      <div class="form__group--reporter">
+        <label for="reporter" class="form__label">Reporter</label>
+        <select class="form__input" id="reporter" formControlName="reporter">
+          <option selected disabled>Select Reporter</option>
+          <option *ngFor="let reporter of reporters" [value]="reporter">{{reporter}}</option>
+        </select>
+        <div class="error" *ngIf="reporter.invalid && reporter.errors.required && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Reporter is required. </span>
+        </div>
+      </div>
+
+      <div class="form__group--status">
+        <label for="status" class="form__label">Status</label>
+        <select class="form__input" id="status" formControlName="status">
+          <option selected disabled>Select Status</option>
+          <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
+        </select>
+        <div class="error" *ngIf="status.invalid && status.errors.required && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Status is required.</span>
+        </div>
+      </div>
+
+      <div class="form__group--description">
+        <label for="description" class="form__label">Description</label>
+        <textarea rows="4" cols="30" class="form__input" placeholder="Description" id="description"
+          formControlName="description" required></textarea>
+        <div class="error" *ngIf="description.invalid && description.errors.required && Submitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Description is required.</span>
+        </div>
+      </div>
+
+      <div class="form__group--button">
+        <button type="submit" value="submit" class="form__btn">Update</button>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="container__commentForm">
+
+    <div class="form__title">
+      <h2 class="heading-secondary">
+        Comments
+      </h2>
+    </div>
+
+    <form [formGroup]="commentBugForm" (ngSubmit)="addComment()" class="formComment">
+
+      <div class="form__group--commentdescription">
+        <label for="description" class="form__label">Comment</label>
+        <input class="form__input" placeholder="Enter your comment here" id="description" formControlName="description"
+          required>
+        <div class="error" *ngIf="commentdescription.invalid && commentdescription.errors.required && CommentSubmitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Description is required. </span>
+        </div>
+      </div>
+
+      <div class="form__group--commentreporter">
+        <label for="reporter" class="form__label">Reporter</label>
+        <input type="text" class="form__input" placeholder="Name of reporter" id="reporter" formControlName="reporter"
+          required />
+        <div class="error" *ngIf="commentreporter.invalid && commentreporter.errors.required && CommentSubmitted">
+          <svg class="error__icon">
+            <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+          </svg>
+          <span>Reported is required. </span>
+        </div>
+      </div>
+
+      <div class="form__group--commentbutton">
+        <button type="submit" value="submit" class="btn-page" style="padding: .8rem 1rem">Add</button>
+      </div>
+
+      <div class="form__group--commentbutton">
+        <button (click)="clearInput()" class="btn-page" style="padding: .8rem 1rem">Clear</button>
+      </div>
+    </form>
+
+    <table *ngIf="myBug.comments && myBug.comments.length > 0" class="commentsTable table table__comments">
+      <thead class="table__header table__row">
+        <th class="table__title">
+          <p>Comment</p>
+        </th>
+        <th class="table__title">
+          <p>Reporter</p>
+        </th>
+        <th class="table__title">
+          <p>Action</p>
+        </th>
+      </thead>
+      <tbody>
+        <!-- <tr *ngFor="let comment  of myBug.comments | comments: myBug.length " class="table__row table__rownotheader"> -->
+        <tr *ngFor="let comment  of myBug.comments" class="table__row table__rownotheader">
+          <td class="table__cell">{{ comment.description}}</td>
+          <td class="table__cell">{{ comment.reporter}}</td>
+          <td class="table__cell">
+            <button (click)="deleteComment(comment._id)" class="btn-edit">
+              <svg>
+                <use xlink:href="assets/svg/sprite.svg#icon-bin2"></use>
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

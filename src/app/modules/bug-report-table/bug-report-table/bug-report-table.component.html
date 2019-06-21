@@ -1,0 +1,282 @@
+<div class="container">
+
+  <div class="container__navbar">
+    <app-navbar></app-navbar>
+  </div>
+
+  <div class="container__addBugButton">
+    <button (click)="goToRoute('add-new-bug')" class="btn-purple container__button">
+      <span>Report Bug</span>
+      <svg>
+        <use xlink:href="assets/svg/sprite.svg#icon-bug"></use>
+      </svg>
+    </button>
+  </div>
+
+
+  <div class="container__filterBar">
+
+
+    <div class="search">
+      <input value="" [(ngModel)]="searchInput" (input)="searchInputChanged()" type="text" class=" search__input"
+        placeholder="Search bugs">
+
+      <svg class="search__icon">
+        <use xlink:href="assets/svg/sprite.svg#icon-search"></use>
+      </svg>
+    </div>
+
+    <div>
+      <app-search-bar (bugPriority)="getBugsPerPriority($event)" (bugStatus)="getBugsPerStatus($event)"
+        (bugReporter)="getBugsPerReporter($event)" (clearFilters)="clearAllFilters()"></app-search-bar>
+    </div>
+  </div>
+
+
+  <table class="container__table table">
+    <thead class="table__header table__row">
+      <!-- <tr class="table__row"> -->
+      <th class="table__title">
+        <p>Title</p>
+        <button *ngIf="sortOrder == 'asc'" (click)="setSortBy('title')" class="btn-sort">
+          <svg>
+            <use xlink:href="assets/svg/sprite.svg#icon-circle-up"></use>
+          </svg>
+        </button>
+        <button *ngIf="sortOrder == 'desc'" (click)="setSortBy('title')" class="btn-sort">
+          <svg>
+            <use xlink:href="assets/svg/sprite.svg#icon-circle-down"></use>
+          </svg>
+        </button>
+      </th>
+      <th class="table__title">
+        <p>Priority</p>
+        <button *ngIf="sortOrder == 'asc'" (click)="setSortBy('priority')" class="btn-sort">
+          <svg>
+            <use xlink:href="assets/svg/sprite.svg#icon-circle-up"></use>
+          </svg>
+        </button>
+        <button *ngIf="sortOrder == 'desc'" (click)="setSortBy('priority')" class="btn-sort">
+          <svg>
+            <use xlink:href="assets/svg/sprite.svg#icon-circle-down"></use>
+          </svg>
+        </button>
+      </th>
+      <th class="table__title">
+        <p>Reporter</p>
+        <button *ngIf="sortOrder == 'asc'" (click)="setSortBy('reporter')" class="btn-sort">
+          <svg>
+            <use xlink:href="assets/svg/sprite.svg#icon-circle-up"></use>
+          </svg>
+        </button>
+        <button *ngIf="sortOrder == 'desc'" (click)="setSortBy('reporter')" class="btn-sort">
+          <svg>
+            <use xlink:href="assets/svg/sprite.svg#icon-circle-down"></use>
+          </svg>
+        </button>
+      </th>
+      <th class="table__title">
+        <p>Status</p>
+      </th>
+      <th class="table__title">
+        <p>Date</p>
+      </th>
+      <th class="table__title">
+        <p>Comments</p>
+      </th>
+      <th class="table__title">
+        <p>Edit</p>
+      </th>
+      <th class="table__title">
+        <p>Delete</p>
+      </th>
+    </thead>
+    <tbody>
+      <div *ngIf="loadingData" class="spinner-container">
+        <div class="spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <tr *ngFor="let bug of bugs | slice:0:size; let i=index" class="table__row table__rownotheader">
+
+        <td class="table__cell">{{ bug.title | slice:0:12 }}</td>
+        <!-- <td *ngIf="!(bug.title.length > 12)" class="table__cell">{{ bug.title }}</td> -->
+        <td class="table__cell"
+          [ngClass]="{'critical': bug.priority == 3, 'major': bug.priority == 2, 'minor': bug.priority == 1}">
+          {{ bug.priority | priorities: priority }}</td>
+        <td class="table__cell">{{ bug.reporter }}</td>
+        <td class="table__cell">{{ bug.status }}</td>
+        <td class="table__cell">{{ bug.createdAt  | date }}</td>
+        <td class="table__cell" *ngIf="bug.comments">
+          ({{bug.comments.length}})
+          <button (click)="openViewCommentsModal(bug.id)" class="btn-edit">
+            <svg>
+              <use xlink:href="assets/svg/sprite.svg#icon-bubble"></use>
+            </svg>
+          </button>
+          <button (click)="openAddNewCommentModal(bug.id)" class="btn-edit">
+            <svg>
+              <use xlink:href="assets/svg/sprite.svg#icon-plus"></use>
+            </svg>
+          </button>
+        </td>
+        <td class="table__cell" *ngIf="!bug.comments">
+          (0)
+          <button (click)="openAddNewCommentModal(bug.id)" class="btn-edit">
+            <svg>
+              <use xlink:href="assets/svg/sprite.svg#icon-bubble"></use>
+            </svg>
+          </button>
+        </td>
+        <td class="table__cell">
+          <button (click)="goToEditBug(bug.id)"
+            [ngClass]="{'critical': bug.priority == 3, 'major': bug.priority == 2, 'minor': bug.priority == 1}"
+            class="btn-edit">
+            <svg>
+              <use xlink:href="assets/svg/sprite.svg#icon-pencil"></use>
+            </svg>
+          </button>
+        </td>
+        <td class="table__cell">
+          <button (click)="deleteBugConfirmation(bug.id)" class="btn-edit">
+            <svg>
+              <use xlink:href="assets/svg/sprite.svg#icon-bin2"></use>
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="container__pagination">
+    <button (click)="setPreviousPage()" [ngClass]="{ disabled: runOutOfPreviousData }" class="btn-arrow">&laquo;
+      Previous</button>
+    <ul>
+      <li *ngFor="let page of pages">
+        <button (click)="setPage(page)" class="btn-page"> {{page}} </button>
+      </li>
+    </ul>
+    <button (click)="setNextPage()" [ngClass]="{ disabled: runOutOfNextData }" class="btn-arrow">Next &raquo;</button>
+  </div>
+
+
+
+  <div *ngIf="addNewComment" class="popup" id="popup">
+
+    <div class="popup__content">
+      <div class="popup__header">
+        <div></div>
+
+        <h2 class="popup__title heading-secondary u-margin-bottom-small">Add a new comment</h2>
+        <button *ngIf="!fromViewComments" (click)="closeAddNewCommentModal()"
+          class="popup__close btn-edit u-margin-bottom-small">
+          <svg>
+            <use xlink:href="assets/svg/sprite.svg#icon-cross"></use>
+          </svg>
+        </button>
+        <button *ngIf="fromViewComments" (click)="viewCommentsFromAddNewComment()"
+          class="popup__close btn-edit u-margin-bottom-small">
+          <svg>
+            <use xlink:href="assets/svg/sprite.svg#icon-cross"></use>
+          </svg>
+        </button>
+      </div>
+
+      <form [formGroup]="commentBugForm" (ngSubmit)="addComment()" class="formCommentPopup">
+
+        <div class="form__group--commentreporter">
+          <label for="reporter" class="form__label">Reporter</label>
+          <input type="text" class="form__input" placeholder="Name of reporter" id="reporter" formControlName="reporter"
+            required />
+          <div class="error" *ngIf="commentreporter.invalid && CommentSubmitted">
+            <svg class="error__icon">
+              <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+            </svg>
+            <span>Reported is required. </span>
+          </div>
+        </div>
+
+
+
+        <div class="form__group--commentdescription">
+          <label for="description" class="form__label">Comment</label>
+          <textarea rows="3" class="form__input" placeholder="Enter your comment here" id="description"
+            formControlName="description" required></textarea>
+          <div class="error" *ngIf="commentdescription.invalid && CommentSubmitted">
+            <svg class="error__icon">
+              <use xlink:href="assets/svg/sprite.svg#icon-notification"></use>
+            </svg>
+            <span>Description is required. </span>
+          </div>
+        </div>
+
+        <div class="form__group--commentbutton">
+          <button type="submit" value="submit" class="btn-page" style="padding: .8rem 1rem">Add</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <div *ngIf="viewComments" class="popup" id="popup">
+
+    <div class="popup__content">
+      <div class="popup__header">
+        <div></div>
+
+        <h2 class="popup__title heading-secondary u-margin-bottom-small">View Comments</h2>
+        <button (click)="closeViewCommentsModal()" class="popup__close btn-edit u-margin-bottom-small">
+          <svg>
+            <use xlink:href="assets/svg/sprite.svg#icon-cross"></use>
+          </svg>
+        </button>
+      </div>
+
+      <table *ngIf="myBug.comments && myBug.comments.length > 0"
+        class="commentstable_scrollable commentsTable commentstable commentstable__comments">
+        <thead class="commentstable__header commentstable__row">
+          <th class="commentstable__title">
+            <p>Comment</p>
+          </th>
+          <th class="commentstable__title">
+            <p>Reporter</p>
+          </th>
+          <th class="commentstable__title">
+            <p>Action</p>
+          </th>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let comment  of myBug.comments | comments: myBug.length " class="table__row table__rownotheader"> -->
+          <tr *ngFor="let comment  of myBug.comments" class="commentstable__row commentstable__rownotheader">
+            <td class="commentstable__cell">{{ comment.description}}</td>
+            <td class="commentstable__cell">{{ comment.reporter}}</td>
+            <td class="commentstable__cell">
+              <button (click)="deleteComment(comment._id)" class="btn-edit">
+                <svg>
+                  <use xlink:href="assets/svg/sprite.svg#icon-bin2"></use>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="form__group--commentbutton">
+        <button (click)="addNewCommentFromViewComments()" class="btn-page" style="padding: .8rem 1rem">Add New</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="container__love">
+    Made with
+    <i>♥</i> by
+    Team 7
+  </div>
+
+
+</div>

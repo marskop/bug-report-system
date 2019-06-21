@@ -1,0 +1,66 @@
+
+
+.dropdown {
+
+  z-index: 100;
+  position: relative;
+
+  &__button {
+
+    &:focus+ul {
+
+      visibility: visible;
+      opacity: 1;
+      display: block;
+      z-index: 10;
+      height: auto;
+      
+      margin-top: 1rem;
+      box-shadow: 0 1.5rem 4rem rgba(#000, 0.15);
+    }
+
+    svg {
+      fill: $color-secondary;
+      width: 2rem;
+      height: 2rem;
+    }
+
+  }
+
+  &__menu {
+   
+    background-color: $color-background;
+    border: .2rem solid $color-secondary;
+    margin-top: 1rem;
+    list-style: none;
+    font-size: 1.5rem;
+    color: white;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+
+  }
+
+  &__item {
+   
+    text-decoration: none;
+    transition-duration: 0.5s;
+    width: 20rem;
+    padding: 1rem 1rem;
+    
+    &:hover {
+      background-color: $color-secondary;
+      cursor: pointer;
+    }
+
+    &--disabled {
+      padding: 1rem 1rem;
+      cursor: context-menu;
+      color: $color-grey-dark-2;
+    }
+
+
+  }
+}
+
+
